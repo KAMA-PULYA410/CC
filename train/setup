@@ -1,0 +1,14 @@
+local files = {
+  "train.lua",
+  "prib.dfpwm",
+  "otb.dfpwm"
+}
+
+local base = "https://raw.githubusercontent.com/ТВОЙ_НИК/cc-project/main/"
+
+for _, file in ipairs(files) do
+  print("Downloading " .. file)
+  shell.run("wget", base .. file, file)
+end
+
+print("Done!")
