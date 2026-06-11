@@ -6,12 +6,34 @@ local files = {
 
 local base = "https://raw.githubusercontent.com/KAMA-PULYA410/CC/main/train/"
 
-for _, file in ipairs(files) do
-  local url = base .. file
+local function download(url, path)
+  print("Downloading " .. path)
 
-  print("Downloading: " .. url)
+  local response = http.get(url, nil, true)
+  if not response then
+    print("Failed: " .. url)
+    return false
+  end
 
-  shell.run("wget", url, file)
+  local data = response.readAll()
+  response.close()
+
+  local file = fs.open(path, "wb")
+  if not file then
+    print("Cannot write: " .. path)
+    return false
+  end
+
+  file.write(data)
+  file.close()
+
+  print("Saved " .. path)
+  return true
+end
+
+for _, name in ipairs(files) do
+  local url = base .. name
+  download(url, name)
 end
 
 print("Done!")
