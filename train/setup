@@ -4,11 +4,14 @@ local files = {
   "otb.dfpwm"
 }
 
-local base = "https://github.com/KAMA-PULYA410/CC/raw/refs/heads/main/train/"
+local base = "https://raw.githubusercontent.com/KAMA-PULYA410/CC/main/train/"
 
 for _, file in ipairs(files) do
-  print("Downloading " .. file)
-  shell.run("wget", "-f", base .. file, file)
+  local url = base .. file
+
+  print("Downloading: " .. url)
+
+  shell.run("wget", url, file)
 end
 
 print("Done!")
